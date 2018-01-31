@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
-namespace BillStatus
+namespace CM332ABillStatus
 {
     class Downloader
     {
@@ -11,7 +11,7 @@ namespace BillStatus
 
         private DirectoryInfo _downloadDirectory { get; set; }
 
-        public FileOverwriteMode FileOverwriteMode { get; set; } = FileOverwriteMode.PreserveAll;
+        public bool OverwriteExisting { get; set; } = false;
 
         public Downloader(DirectoryInfo downloadDirectory)
         {
@@ -52,14 +52,14 @@ namespace BillStatus
         private void DownloadFile(WebClient client, string url, FileInfo endFile)
         {
             Console.Write("  Downloading {0}... ", endFile.Name);
-            if (FileOverwriteMode == FileOverwriteMode.OverwriteAll)
+            if (OverwriteExisting)
             {
                 if (endFile.Exists)
                     endFile.Delete();
                 client.DownloadFile(url, endFile.FullName);
                 Console.WriteLine("Downloaded.");
             }
-            else if (FileOverwriteMode == FileOverwriteMode.PreserveAll)
+            else
             {
                 if (!endFile.Exists)
                 {

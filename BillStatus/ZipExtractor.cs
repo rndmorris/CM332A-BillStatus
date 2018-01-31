@@ -2,13 +2,13 @@
 using System.IO;
 using System.IO.Compression;
 
-namespace BillStatus
+namespace CM332ABillStatus
 {
     public class ZipExtractor
     {
         private DirectoryInfo _downloadDirectory;
         private DirectoryInfo _extractDirectory;
-        public FileOverwriteMode FileOverwriteMode = FileOverwriteMode.PreserveAll;
+        public bool OverwriteExisting = false;
 
         public ZipExtractor(DirectoryInfo downloadDirectory, DirectoryInfo extractDirectory)
         {
@@ -34,13 +34,13 @@ namespace BillStatus
             foreach (var entry in archive.Entries)
             {
                 var endFile = new FileInfo(_extractDirectory.FullName + Path.DirectorySeparatorChar + entry.FullName);
-                if (FileOverwriteMode == FileOverwriteMode.OverwriteAll)
+                if (OverwriteExisting)
                 {
                     if (endFile.Exists)
                         endFile.Delete();
                     entry.ExtractToFile(endFile.FullName);
                 }
-                else if (FileOverwriteMode == FileOverwriteMode.PreserveAll)
+                else
                 {
                     if (!endFile.Exists)
                         entry.ExtractToFile(endFile.FullName);

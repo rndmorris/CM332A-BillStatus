@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace BillStatus
+namespace CM332ABillStatus
 {
     public class ArffWriter
     {

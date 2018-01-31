@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BillStatus
+namespace CM332ABillStatus
 {
     public class Bill
     {
